@@ -193,11 +193,10 @@
 
     var params = new URLSearchParams(location.search);
     var forceBlocked = params.get('gate') === 'blocked';
-    params.delete('gate');
+    var qs = location.search.slice(1).split('&').filter(function (p) { return p && p.split('=')[0] !== 'gate'; }).join('&');
 
     var target = mainBase + '/';
     if (CONFIG.forwardUrl) {
-      var qs = params.toString();
       var path = location.pathname.replace(/\/index\.html?$/, '/');
       target = mainBase + path + (qs ? '?' + qs : '') + location.hash;
     }
